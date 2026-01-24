@@ -1,0 +1,24 @@
+# (Member 1) User logins & Auth
+# config.yaml
+credentials:
+  usernames:
+    # This is a sample user for the demo
+    student1:
+      email: "student@stemquest.com"
+      name: "STEM Explorer"
+      password: "123" # Member 1 will eventually replace this with a hashed password
+    admin:
+      email: "admin@stemquest.com"
+      name: "Lead Mentor"
+      password: "admin_pass"
+
+# Cookie settings allow users to stay logged in even if they refresh
+cookie:
+  expiry_days: 30
+  key: "stem_quest_signature_key" # Keep this string unique
+  name: "stem_quest_auth_cookie"
+
+# Optional: List of emails allowed to register if you add a sign-up feature
+preauthorized:
+  emails:
+    - "hackathon_judge@example.com"

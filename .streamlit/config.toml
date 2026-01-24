@@ -1,0 +1,11 @@
+[theme]
+primaryColor = "#7D3CFF" # Deep Space Purple
+backgroundColor = "#0E1117" # Deep Midnight Black
+secondaryBackgroundColor = "#161B22" # Nebula Grey
+textColor = "#FFFFFF" # Comet White
+font = "sans serif"
+
+[server]
+headless = true
+enableCORS = false
+enableXsrfProtection = false

@@ -1,0 +1,10 @@
+# (Member 4)
+# List of jobs for the AI to recommend
+
+
+career_name,required_skills,average_salary_lpa
+Software Engineer,"Python, DSA, Problem Solving",10
+Data Scientist,"Python, Statistics, Machine Learning",12
+Doctor,"Biology, Chemistry, Memory",15
+Mechanical Engineer,"Physics, Mechanics, CAD",8
+Astrophysicist,"Physics, Math, Research",9

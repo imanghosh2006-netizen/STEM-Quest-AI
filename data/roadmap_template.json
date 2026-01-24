@@ -1,0 +1,18 @@
+
+{
+  "Software Engineer": {
+    "beginner": ["Python basics", "Control flow", "Functions"],
+    "intermediate": ["Data Structures", "OOP", "Mini projects"],
+    "advanced": ["System Design", "Internships", "Open Source"]
+  },
+  "Data Scientist": {
+    "beginner": ["Python", "Math basics", "Pandas"],
+    "intermediate": ["Statistics", "ML algorithms", "Projects"],
+    "advanced": ["Deep Learning", "Research", "Industry projects"]
+  },
+  "Doctor": {
+    "beginner": ["Biology basics", "NCERT"],
+    "intermediate": ["NEET preparation", "Mock tests"],
+    "advanced": ["MBBS", "Specialization"]
+  }
+}

@@ -1,0 +1,16 @@
+{
+    "questions": [
+        {
+            "id": 1,
+            "question": "When you see a complex machine, what is your first thought?",
+            "options": ["How do I build this?", "How does the code run it?", "What is the math behind it?"],
+            "skills": ["Engineering", "Programming", "Mathematics"]
+        },
+        {
+            "id": 2,
+            "question": "Which superpower would you prefer?",
+            "options": ["Predicting the future with data", "Communicating with robots", "Designing new materials"],
+            "skills": ["Data Science", "AI/Robotics", "Material Science"]
+        }
+    ]
+}

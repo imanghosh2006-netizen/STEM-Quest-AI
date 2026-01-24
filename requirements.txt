@@ -1,0 +1,12 @@
+# UI and Auth
+streamlit
+streamlit-authenticator
+pyyaml
+
+# AI Logic (CrewAI + Gemini)
+crewai
+langchain-google-genai
+python-dotenv
+
+# Data Handling
+pandas

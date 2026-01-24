@@ -1,0 +1,10 @@
+# Python environment
+.venv/
+__pycache__/
+
+# SECRETS (Do not share these!)
+.streamlit/secrets.toml
+.env
+
+# Data and Logs
+*.log
