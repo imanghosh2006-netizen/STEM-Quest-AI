@@ -10,82 +10,75 @@ def get_llm():
     return LLM(
         model="groq/llama-3.3-70b-versatile",
         api_key=st.secrets["GROQ_API_KEY"],
-        temperature=0.7
+        temperature=0.3 
     )
 
-def generate_roadmap(user_skills):
-    """The main engine for STEM Quest. Called by the UI team."""
-    
-    # --- OPTION 2: DATA VALIDATION ---
+def generate_roadmap(user_scores):
+    """
+    Expects user_scores as: {'math': X, 'science': Y, 'tech': Z}
+    """
     try:
-        # Ensures all inputs are integers to prevent AI confusion
-        validated_skills = {k: int(v) for k, v in user_skills.items()}
-    except (ValueError, TypeError):
-        return "### ❌ Input Error\nPlease ensure all quiz scores are valid numbers before generating the roadmap."
+        llm = get_llm()
+        
+        # --- AGENTS ---
+        counselor = Agent(
+            role='STEM Career Matchmaker',
+            goal='Identify a high-growth STEM career based on: Math {math}, Science {science}, Tech {tech}.',
+            backstory=(
+                'You are a world-class career strategist. You look at technical proficiency '
+                'scores to suggest the perfect career path for a student.'
+            ),
+            llm=llm,
+            verbose=True
+        )
+        
+        specialist = Agent(
+            role='Curriculum Designer',
+            goal='Create a 4-week learning roadmap based on the suggested career.',
+            backstory=(
+                'You specialize in accelerated learning. You design paths that '
+                'focus on exactly what a student needs to reach a job-ready level.'
+            ),
+            llm=llm,
+            verbose=True
+        )
 
-    llm = get_llm()
-    
-    # --- OPTION 3: PREMIUM PROMPTS (AGENT BACKSTORIES) ---
-    
-    # Define Agent 1: The STEM Guru
-    counselor = Agent(
-        role='STEM Career Matchmaker',
-        goal=f'Based on these scores: {validated_skills}, suggest 1 high-growth STEM career.',
-        backstory=(
-            'You are a world-class career strategist with 20 years of experience. '
-            'You don’t just find jobs; you identify callings by looking for the unique '
-            'intersection of a student’s technical spikes and market trends.'
-        ),
-        llm=llm,
-        verbose=True
-    )
-    
-    # Define Agent 2: The Roadmap Architect
-    specialist = Agent(
-        role='Academic Path Architect',
-        goal='Create a weekly learning roadmap in Markdown format.',
-        backstory=(
-            'You are an expert curriculum designer specializing in accelerated learning. '
-            'You find the fastest, most effective way for beginners to gain job-ready skills '
-            'using high-quality free online resources.'
-        ),
-        llm=llm,
-        verbose=True
-    )
+        # --- TASKS ---
+        # Note: We use the keys math, science, and tech to match your app logic
+        task1 = Task(
+            description=(
+                "Analyze these proficiency scores: Math: {math}/1.0, Science: {science}/1.0, Tech: {tech}/1.0. "
+                "Suggest 1 high-growth STEM career and give a 2-sentence 'Why' based on these specific strengths."
+            ),
+            expected_output="A career title and a brief justification.",
+            agent=counselor
+        )
 
-    # Define the Tasks
-    task1 = Task(
-        description=f"Analyze scores: {validated_skills} and recommend one STEM path.",
-        expected_output="A career title and a 2-sentence explanation of why it fits these specific scores.",
-        agent=counselor
-    )
+        task2 = Task(
+            description=(
+                "Based on the career from Task 1 and the skill levels (M:{math}, S:{science}, T:{tech}), "
+                "design a 4-week roadmap. Adjust difficulty: if a score is below 0.4, include more basics. "
+                "If above 0.8, make Week 1 a masterclass."
+            ),
+            expected_output=(
+                "A Markdown formatted 4-week roadmap. Each week needs: "
+                "1. Focus Title | 2. 3 Specific Objectives | 3. A Success Pro-Tip."
+            ),
+            agent=specialist,
+            context=[task1]
+        )
 
-    task2 = Task(
-        description=(
-            "Write a detailed 4-week roadmap for this career in Markdown. "
-            "Use clean bullet points and professional headers. Do not use extra indentation."
-        ),
-        expected_output=(
-            "A professional 4-week roadmap. Each week must include: "
-            "1. A catchy 'Focus Title'. "
-            "2. 3-4 specific learning objectives. "
-            "3. A 'Pro-Tip' for success. "
-            "End with a short motivational closing statement."
-        ),
-        agent=specialist,
-        context=[task1]
-    )
+        # --- THE CREW ---
+        crew = Crew(
+            agents=[counselor, specialist],
+            tasks=[task1, task2],
+            process=Process.sequential,
+            verbose=True
+        ) 
 
-    # The Crew
-    crew = Crew(
-        agents=[counselor, specialist],
-        tasks=[task1, task2],
-        process=Process.sequential,
-        memory=False,  
-        cache=False,   
-        verbose=True
-    ) 
+        # Kickoff with the dictionary passed from app.py
+        result = crew.kickoff(inputs=user_scores)
+        return result.raw
 
-    # Kickoff and return clean raw text
-    result = crew.kickoff()
-    return result.raw
+    except Exception as e:
+        return f"### ⚠️ AI Error\nAn error occurred while generating your roadmap: {str(e)}"
