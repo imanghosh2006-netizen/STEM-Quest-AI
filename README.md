@@ -27,7 +27,7 @@ Follow these steps exactly to set up the project on your local machine:
 1. Clone the Repository
 
 bash
-git clone [https://github.com/imanghosh2006-netizen/STEM-Quest-Platform.git](https://github.com/imanghosh2006-netizen/STEM-Quest-Platform.git)
+git clone [https://github.com/imanghosh2006-netizen/STEM-Quest-AI.git](https://github.com/imanghosh2006-netizen/STEM-Quest-AI.git)
 cd STEM-Quest-Platform
 
 
