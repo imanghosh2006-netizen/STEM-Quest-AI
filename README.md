@@ -22,11 +22,14 @@ An adaptive learning platform that uses **Multi-Agent AI Systems** to bridge the
 Follow these steps exactly to set up the project on your local machine:
 
 ### STEPS:
-1. Clone the Repository
-```bash
-git clone [https://github.com/imanghosh2006-netizen/STEM-Quest-Platform.git](https://github.com/imanghosh2006-netizen/STEM-Quest-Platform.git)
-cd STEM-Quest-Platform
+
 ```
+1. Clone the Repository
+
+bash
+git clone [https://github.com/imanghosh2006-netizen/STEM-Quest-AI.git](https://github.com/imanghosh2006-netizen/STEM-Quest-AI.git)
+cd STEM-Quest-Platform
+
 
 2. Set Up a Virtual Environment (venv)
 This creates an isolated space for the project so it doesn't mess up your global Python settings.
@@ -34,7 +37,7 @@ This creates an isolated space for the project so it doesn't mess up your global
 
 Bash
 python -m venv venv
-```
+
 
 
 3. Activate the Virtual Environment
@@ -44,6 +47,8 @@ On Windows:
 
 Bash
 .\venv\Scripts\activate
+
+
 On Mac/Linux:
 
 Bash
@@ -76,8 +81,10 @@ streamlit run app.py
 
 
 📈 Demo Instructions
-Login with your credentials (e.g., imanghosh2006-netizen / 123).
+Login with your credentials (e.g., student1/ 123).
 
 Complete challenges in the Training Center to build your Skill Vector.
 
 Navigate to AI Roadmap to have the agents architect your personalized career path.
+
+```
