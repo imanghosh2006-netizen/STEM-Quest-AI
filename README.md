@@ -34,7 +34,7 @@ This creates an isolated space for the project so it doesn't mess up your global
 
 Bash
 python -m venv venv
-```
+
 
 
 3. Activate the Virtual Environment
