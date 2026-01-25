@@ -47,6 +47,8 @@ On Windows:
 
 Bash
 .\venv\Scripts\activate
+
+
 On Mac/Linux:
 
 Bash
