@@ -10,7 +10,7 @@ st.write("Checking connection between Streamlit and Groq...")
 # 1. Check if the key exists in st.secrets
 if "GROQ_API_KEY" not in st.secrets:
     st.error("❌ ERROR: 'GROQ_API_KEY' not found in secrets.toml")
-    st.info("Check if you named it 'GOOGLE_API_KEY' by mistake!")
+    st.info("Check if you named the key something else by mistake! ")
     st.stop() # Stops the app here so it doesn't crash later
 
 try:
